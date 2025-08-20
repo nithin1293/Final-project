@@ -41,11 +41,17 @@
             </div>
 
             <!-- Submit -->
-            <button type="submit" 
-    class="w-full bg-[#FFB07C] hover:bg-[#FF9A66] text-white font-semibold px-4 py-2 rounded-lg shadow">
-    Save Store
-</button>
-        </form>
+            <div class="flex justify-between space-x-4">
+    <button type="submit" 
+        class="flex-1 bg-[#FFB07C] hover:bg-[#FF9A66] text-white font-semibold px-4 py-2 rounded-lg shadow">
+        Save Store
+    </button>
+
+    <a href="{{ route('dashboard') }}" 
+        class="flex-1 text-center bg-gray-600 hover:bg-gray-500 text-white font-medium px-4 py-2 rounded-lg shadow transition duration-300">
+        Go to Dashboard
+    </a>
+</div>
     </div>
 
     <script>
@@ -56,6 +62,7 @@
         if (!token) {
             window.location.href = '/login';
         }
+        
 
         function getWithExpiry(key) {
             const itemStr = localStorage.getItem(key);
@@ -68,6 +75,35 @@
             }
             return item.value;
         }
+        document.getElementById('store-form').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+      let storeData = {
+        name: document.querySelector('input[name="name"]').value,
+        domain: document.querySelector('input[name="domain"]').value,
+        theme_id: document.querySelector('select[name="theme_id"]').value
+      };
+
+      let res = await fetch('/api/stores', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(storeData)
+      });
+
+      let data = await res.json();
+
+      if (res.ok) {
+        alert('Store created successfully!');
+        document.getElementById('store-form').reset();
+        window.location.href = '/dashboard';
+      } else {
+        alert('Store creation failed: ' + JSON.stringify(data));
+      }
+    });
     </script>
     
 </body>

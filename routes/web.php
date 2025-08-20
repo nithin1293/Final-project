@@ -6,6 +6,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ThemeController;
+use App\Models\Store;
  Route::get('/', function () {
     return view('auth.register');
  })->name('register.form');
@@ -13,9 +14,17 @@ use App\Http\Controllers\ThemeController;
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login.form'); 
-Route::get('/dashboard',function () {
-return view('auth.dashboard');
+
+
+
+Route::get('/dashboard', function () {
+    $stores = Store::all(); // fetch all stores
+    return view('auth.dashboard', compact('stores'));
 })->name('dashboard');
+
+Route::get('/dashboard/store/{id}', [DashboardController::class, 'viewStore'])->name('dashboard.store.view');
+
+Route::get('/dashboard/store/{id}/products', [DashboardController::class, 'storeProducts']);
 Route::get('/store', [StoreController::class, 'create'])->name('store.view');
 Route::post('/store', [StoreController::class, 'store'])->name('store.insert');
 Route::get('/theme', function () {
@@ -27,4 +36,6 @@ Route::post('/theme', [ThemeController::class, 'store'])->name('theme.store');
 
 Route::get('/products', [ProductController::class, 'create'])->name('products.view');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-
+Route::get('/customer_dashboard', function () {
+    return view('customer_dashboard');
+})->name('customer_dashboard');

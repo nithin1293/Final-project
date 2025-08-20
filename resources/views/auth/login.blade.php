@@ -38,6 +38,10 @@
             Don’t have an account?
             <a href="{{ route('register.form') }}" class="text-blue-600 font-semibold hover:underline">Register</a>
         </p>
+        <!-- <p class="text-center text-gray-500 mt-4">
+            Don’t have an account?
+            <a href="{{ route('register.form') }}" class="text-blue-600 font-semibold hover:underline">Register</a>
+        </p> -->
     </div>
 
 </body>
@@ -67,31 +71,41 @@
         if (hasError) return;
 
         fetch('/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
-        })
-        .then(async response => {
-            if (!response.ok) {
-                const errorData = await response.json(); 
-                throw new Error(errorData.message || 'Login failed');
-            }
-            return response.json(); 
-        })
-        .then(data => {
-            console.log('Login successful:', data);
-            setWithExpiry('token', data.token, 3600000); 
-            window.location.href = '/dashboard'; 
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Login failed. Please try again.');
-        });
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+        email: email,
+        password: password
+    })
+})
+.then(async response => {
+    if (!response.ok) {
+        const errorData = await response.json(); 
+        throw new Error(errorData.message || 'Login failed');
+    }
+    return response.json(); 
+})
+.then(data => {
+    console.log('Login successful:', data);
+    setWithExpiry('token', data.tokendata.token, 3600000);
+
+    // Redirect based on user_type
+    if (data.user.user_type === 'store_owner') {
+        window.location.href = '/dashboard';
+    } else if (data.user.user_type === 'customer') {
+        window.location.href = '/customer_dashboard';
+    } else {
+        alert('Invalid user type');
+    }
+})
+.catch(error => {
+    console.error('Error:', error);
+    alert('Login failed. Please try again.');
+});
+
     });
 
     function setWithExpiry(key, value, ttl) {

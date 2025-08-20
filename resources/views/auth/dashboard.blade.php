@@ -35,12 +35,21 @@
     </div>
 
     <!-- Main Content -->
-    <div class="flex-1 p-10 bg-gray-100">
-        <div class="bg-white shadow-md rounded-lg p-8">
-            <h1 class="text-3xl font-bold text-gray-700">Welcome to Dashboard</h1>
-            <p class="mt-2 text-gray-500">Manage your store, themes, and products easily.</p>
-        </div>
+    
+    <div class="bg-white shadow-md rounded-lg p-8">
+    <h1 class="text-3xl font-bold text-gray-700">All Stores</h1>
+    <p class="mt-2 text-gray-500">Click on a store to view its products with the applied theme.</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        @foreach($stores as $store)
+            <a href="{{ route('dashboard.store.view', $store->id) }}" 
+               class="block bg-gray-100 hover:bg-gray-200 rounded-lg p-6 shadow">
+                <h2 class="text-xl font-semibold">{{ $store->name }}</h2>
+                <p class="text-gray-600">{{ $store->domain }}</p>
+            </a>
+        @endforeach
     </div>
+</div>
 
     <script>
         var token = getWithExpiry('token');

@@ -66,11 +66,15 @@
             </div>
 
             <!-- Submit Button -->
-            <div class="flex justify-center">
+            <div class="flex justify-center space-x-4">
                 <button type="submit" 
                     class="px-6 py-2 bg-[#FFB07C] hover:bg-[#FF9A66] text-white font-medium rounded-xl shadow transition duration-300">
                     Save Theme
                 </button>
+                <a href="{{ route('dashboard') }}" 
+        class="px-6 py-2 bg-gray-600 hover:bg-gray-500 text-white font-medium rounded-xl shadow transition duration-300">
+        Go to Dashboard
+    </a>
             </div>
         </form>
     </div>

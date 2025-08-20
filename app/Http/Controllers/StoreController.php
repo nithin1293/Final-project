@@ -25,7 +25,7 @@ class StoreController extends Controller
     $store->theme_id = $request->theme_id;
     $store->save();
 
-    return redirect()->back()->with('success', 'Store created successfully!');
+    return response()->json(['status' => 'success', 'message' => 'Store created successfully!']);
 }
 
     public function show($id)

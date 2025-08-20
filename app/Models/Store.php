@@ -32,4 +32,9 @@ class Store extends Model
     {
         return $this->hasMany(Order::class);
     }
+    public function theme()
+{
+    return $this->belongsTo(\App\Models\Theme::class);
+}
+
 }

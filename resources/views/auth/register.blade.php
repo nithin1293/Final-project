@@ -33,6 +33,14 @@
         <input type="password" id="password_confirmation" placeholder="Confirm Password" 
                class="w-full p-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300">
       </div>
+       <div>
+        <select id="user_type"
+                class="w-full p-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300">
+          <option value="" disabled selected>Select User Type</option>
+          <option value="customer">Customer</option>
+          <option value="store_owner">Store Owner</option>
+        </select>
+      </div>
 
       <button type="submit" id="register-button"
               class="w-full bg-gradient-to-r from-pink-500 via-purple-500 to-red-500 text-white font-bold py-3 rounded-lg hover:opacity-90 transition">
@@ -54,6 +62,7 @@
       const email = $('#email').val();
       const password = $('#password').val();
       const password_confirmation = $('#password_confirmation').val();
+      const user_type = $('#user_type').val();
 
       // Remove old error messages and reset borders
       $('.error-msg').remove();
@@ -90,6 +99,11 @@
         $('#password_confirmation').addClass('border-red-500');
         hasError = true;
       }
+      if (!user_type) {
+        $('#user_type').after('<p class="error-msg text-red-500 text-sm mt-1">User type is required</p>');
+        $('#user_type').addClass('border-red-500');
+        hasError = true;
+      }
 
       if (hasError) return;
 
@@ -102,7 +116,8 @@
           name: name,
           email: email,
           password: password,
-          password_confirmation: password_confirmation
+          password_confirmation: password_confirmation,
+          user_type: user_type
         })
       })
       .then(async response => {

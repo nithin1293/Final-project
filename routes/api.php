@@ -6,7 +6,7 @@ use App\Models\Store;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/stores', [StoreController::class, 'index']);
+Route::post('/stores', [StoreController::class, 'store']);
 
 
 

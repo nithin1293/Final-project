@@ -130,7 +130,7 @@
         expiry: now.getTime() + ttl,
       };
       localStorage.setItem(key, JSON.stringify(item));
-      // <h1> hi </h1>
+      
     }
   </script>
 </body>

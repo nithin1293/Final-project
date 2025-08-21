@@ -15,6 +15,7 @@ class StoreController extends Controller
         $themes = Theme::all(); 
         return view('store', compact('themes'));
     }
+    
 
     public function store(Request $request)
 {

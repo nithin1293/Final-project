@@ -6,6 +6,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\CustomerDashboardController;
 use App\Models\Store;
  Route::get('/', function () {
     return view('auth.register');
@@ -23,6 +24,9 @@ Route::get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('/dashboard/store/{id}', [DashboardController::class, 'viewStore'])->name('dashboard.store.view');
+Route::get('/customer/dashboard/store/{id}', [CustomerDashboardController::class, 'viewStore'])->name('customer_dashboard.store.view');
+Route::get('/customer/dashboard', [CustomerDashboardController::class, 'index'])->name('customer_dashboard');
+
 
 Route::get('/dashboard/store/{id}/products', [DashboardController::class, 'storeProducts']);
 Route::get('/store', [StoreController::class, 'create'])->name('store.view');
@@ -36,6 +40,6 @@ Route::post('/theme', [ThemeController::class, 'store'])->name('theme.store');
 
 Route::get('/products', [ProductController::class, 'create'])->name('products.view');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-Route::get('/customer_dashboard', function () {
-    return view('customer_dashboard');
-})->name('customer_dashboard');
+// Route::get('/customer_dashboard', function () {
+//     return view('customer_dashboard');
+// })->name('customer_dashboard');

@@ -96,7 +96,7 @@
     if (data.user.user_type === 'store_owner') {
         window.location.href = '/dashboard';
     } else if (data.user.user_type === 'customer') {
-        window.location.href = '/customer_dashboard';
+        window.location.href = '/customerDashboard';
     } else {
         alert('Invalid user type');
     }

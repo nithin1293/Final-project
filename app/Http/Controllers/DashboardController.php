@@ -11,9 +11,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $stores = Store::where('user_id', Auth::user()->id)->get();
-         
+        $user = Auth::user(); // returns the User model of the logged-in person
 
+        // Fetch only that user's stores
+        $stores = Store::where('user_id', $user->id)->get();
         return view('dashboard', compact('stores'));
     }
 

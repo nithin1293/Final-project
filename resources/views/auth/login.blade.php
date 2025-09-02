@@ -103,7 +103,10 @@
 })
 .catch(error => {
     console.error('Error:', error);
-    alert('Login failed. Please try again.');
+    
+    $('.error-msg').remove();
+    $('#login-button').before('<p class="error-msg text-red-500 text-sm mb-3">Invalid email or password</p>');
+    
 });
 
     });

@@ -50,3 +50,10 @@ Route::post('/products', [ProductController::class, 'store'])->name('products.st
 // Route::get('/customer_dashboard', function () {
 //     return view('customer_dashboard');
 // })->name('customer_dashboard');
+Route::get('/cart', function () {
+    return view('cart');
+})->name('cart.show');
+use App\Http\Controllers\CartController;
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
+

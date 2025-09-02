@@ -15,7 +15,7 @@ class CustomerDashboardController extends Controller
      */
     public function index()
     {
-        // Fetches all stores to be displayed on the dashboard.
+        
         $stores = Store::all();
         return view('customerDashboard', compact('stores'));
     }
@@ -28,7 +28,7 @@ class CustomerDashboardController extends Controller
      */
     public function showStoreProducts($id)
     {
-        // Find the store by its ID, or fail.
+       
         $store = Store::findOrFail($id);
         // Fetches all products associated with that store.
         $products = Product::where('store_id', $id)->get();

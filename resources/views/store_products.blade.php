@@ -1,30 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $store->name }} - Products</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body 
-    class="min-h-screen p-10" 
-    style="
-        background-color: {{ $themeSettings['background_color'] ?? '#f9fafb' }};
-        color: {{ $themeSettings['font_color'] ?? '#111827' }};
-        font-size: {{ $themeSettings['font_size'] ?? '16px' }};
-        font-family: {{ $themeSettings['font_name'] ?? 'sans-serif' }};
-    "
->
-    <h1 class="text-3xl font-bold mb-6">{{ $store->name }} - Products</h1>
+@extends('layouts.app')
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+@section('title', $store->name)
+
+@section('content')
+    <h1 class="text-3xl font-bold mb-6">{{ $store->name }}</h1>
+    <p class="text-gray-600 mb-8">{{ $store->description }}</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         @foreach($store->products as $product)
-            <div class="bg-white rounded-lg shadow p-4">
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
                 <h2 class="text-xl font-semibold">{{ $product->name }}</h2>
-                <p class="mt-2">{{ $product->description }}</p>
-                <p class="mt-2 font-bold">₹{{ $product->price }}</p>
+                <p class="text-gray-600">₹{{ $product->price }}</p>
+                <button 
+                    onclick="addToCart({{ $product->id }}, '{{ $product->name }}', {{ $product->price }})"
+                    class="mt-3 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
+                    Add to Cart
+                </button>
             </div>
         @endforeach
     </div>
-</body>
-</html>
+@endsection

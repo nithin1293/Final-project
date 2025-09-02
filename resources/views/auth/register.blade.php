@@ -55,6 +55,7 @@
   </div>
 
   <script>
+    localStorage.removeItem('token');
     document.getElementById('register-button').addEventListener('click', function(event) {
       event.preventDefault();
 
